@@ -1,0 +1,18 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/dealers", "destination": "/Become-a-Dealer.html" },
+    { "source": "/dealer", "destination": "/Become-a-Dealer.html" },
+    { "source": "/Become-a-Dealer", "destination": "/Become-a-Dealer.html" },
+    { "source": "/Become-a-Dealer.dc.html", "destination": "/Become-a-Dealer.html" },
+    { "source": "/Range.dc.html", "destination": "/index.html" },
+    { "source": "/Refurbishment.dc.html", "destination": "/index.html" },
+    { "source": "/Warranty.dc.html", "destination": "/index.html" },
+    { "source": "/Contact.dc.html", "destination": "/index.html" },
+    { "source": "/Dealer-Sign-In.dc.html", "destination": "/index.html" },
+    { "source": "/About.dc.html", "destination": "/index.html" },
+    { "source": "/Privacy.dc.html", "destination": "/index.html" },
+    { "source": "/Terms.dc.html", "destination": "/index.html" }
+  ]
+}

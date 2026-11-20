@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Become a Dealer · Berrelli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D0D0E;
+  --panel: #161618;
+  --line: #2A2A2D;
+  --txt: #ECECEA;
+  --mute: #8E8E8A;
+  --red: #ED1C24;
+  --red-hover: #ff2a33;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: 'Archivo', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, h5, p, ul { margin: 0; padding: 0; }
+button, input, select, textarea { font-family: inherit; }
+::selection { background: var(--red); color: #fff; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 36px);
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* Top Navigation */
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: background .3s, border-color .3s;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+}
+.top.scrolled {
+  background: rgba(13, 13, 14, .92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: var(--line);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+.nav .brand {
+  display: flex;
+  align-items: center;
+}
+.nav .brand img {
+  height: 24px;
+  display: block;
+}
+.nav ul {
+  display: flex;
+  list-style: none;
+  gap: 34px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+.nav ul a {
+  color: #bdbdb8;
+  transition: color .2s;
+}
+.nav ul a:hover,
+.nav ul a.active {
+  color: #fff;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #3a3a3e;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: .25s;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+.key:hover {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+.key svg {
+  width: 15px;
+  height: 15px;
+}
+.menu-btn {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 6px;
+  cursor: pointer;
+  color: #fff;
+}
+.menu-btn svg { width: 26px; height: 26px; }
+
+/* Mobile Navigation Drawer */
+.mob-nav {
+  position: fixed;
+  top: 76px;
+  inset-inline: 0;
+  bottom: 0;
+  background: var(--bg);
+  padding: 32px 28px;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  z-index: 45;
+  border-top: 1px solid var(--line);
+}
+.mob-nav.open { display: flex; }
+.mob-nav a {
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 38px;
+  line-height: 1;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--txt);
+  transition: color .2s;
+}
+.mob-nav a:hover,
+.mob-nav a.active { color: var(--red); }
+.mob-nav .mob-key {
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  align-self: flex-start;
+}
+
+/* Hero Section */
+.hero {
+  padding: 196px 0 0;
+}
+.hero h1 {
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(56px, 10.5vw, 170px);
+  line-height: .86;
+  letter-spacing: -.02em;
+}
+.hero h1 .r {
+  color: var(--red);
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 40px;
+  align-items: end;
+  margin-top: 40px;
+  border-top: 1px solid #3a3a3e;
+  padding-top: 26px;
+}
+.hero-meta p {
+  max-width: 560px;
+  color: #c9c9c4;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  transition: .25s;
+}
+.btn-red:hover {
+  background: #fff;
+  color: #000;
+}
+.btn-red svg {
+  width: 16px;
+  height: 16px;
+  transition: transform .2s ease;
+}
+.btn-red:hover svg {
+  transform: translateX(4px);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1px solid #55555a;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: .25s;
+}
+.btn-ghost:hover {
+  border-color: #fff;
+}
+
+/* 4 Feature Cards */
+.features-sec {
+  padding: 100px 0 120px;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.feature-card {
+  padding: 30px 26px 36px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+.feature-card .card-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  color: var(--red);
+  font-size: 14px;
+}
+.feature-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: auto;
+  margin-bottom: 8px;
+}
+.feature-card p {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Section: HOW IT WORKS */
+.steps-sec {
+  padding: 120px 0;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.steps-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: 60px;
+}
+.steps-layout h2 {
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(40px, 5.4vw, 84px);
+  line-height: .92;
+  letter-spacing: -.01em;
+  margin-top: 14px;
+}
+.steps-list {
+  border-top: 1px solid var(--line);
+}
+.step-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+.step-item:last-child {
+  border-bottom: 0;
+}
+.step-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  color: var(--red);
+  font-size: 15px;
+}
+.step-body h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.step-body p {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Section: DEALER APPLICATION */
+.apply-sec {
+  padding: 120px 0;
+}
+.apply-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: 60px;
+  align-items: start;
+}
+.apply-layout h2 {
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(40px, 5.4vw, 84px);
+  line-height: .92;
+  letter-spacing: -.01em;
+  margin-top: 14px;
+}
+.apply-layout p.side-note {
+  color: var(--mute);
+  margin-top: 24px;
+  font-size: 16px;
+}
+
+/* Application Form Container */
+.app-form-box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: clamp(28px, 4vw, 48px);
+}
+.app-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.field-group.full-width {
+  grid-column: 1 / -1;
+}
+.field-group label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.field-group input,
+.field-group select,
+.field-group textarea {
+  background: transparent;
+  border: 1px solid #333336;
+  padding: 14px;
+  color: var(--txt);
+  font-size: 15px;
+  outline: none;
+  width: 100%;
+  border-radius: 0;
+  transition: border-color .2s;
+}
+.field-group select {
+  background: var(--panel);
+  cursor: pointer;
+}
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: var(--red);
+}
+.field-group input::placeholder,
+.field-group textarea::placeholder {
+  color: #5f5f5b;
+}
+.field-group select option {
+  background: var(--panel);
+  color: var(--txt);
+}
+.form-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.form-terms {
+  font-size: 13px;
+  color: var(--mute);
+}
+.form-terms a {
+  color: #fff;
+  border-bottom: 1px solid var(--red);
+}
+
+/* Form Success Notice */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 10px;
+}
+.form-success h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.form-success p {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 46px 0 30px;
+  color: var(--mute);
+  font-size: 14px;
+}
+.foot-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.foot-links {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+.foot-links a:hover { color: #fff; }
+.legal {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+.legal a:hover { color: #fff; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nav ul, .nav .key { display: none; }
+  .menu-btn { display: block; }
+  .hero-meta { grid-template-columns: 1fr; }
+  .steps-layout { grid-template-columns: 1fr; }
+  .apply-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero h1 { font-size: 52px; }
+  .form-footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="top" id="topHeader">
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="Berrelli Home">
+      <img src="data:image/png;base64,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" alt="Berrelli">
+    </a>
+    <ul id="desktopNav">
+      <li><a href="Range.dc.html">Range</a></li>
+      <li><a href="Refurbishment.dc.html">Refurbishment</a></li>
+      <li><a href="Warranty.dc.html">Warranty</a></li>
+      <li><a href="Become-a-Dealer.dc.html" class="active">Dealers</a></li>
+      <li><a href="Contact.dc.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="key" href="Dealer-Sign-In.dc.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="10"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+        Dealer portal
+      </a>
+      <button class="menu-btn" id="menuToggle" aria-label="Toggle Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h18M3 16h18"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Drawer -->
+<div class="mob-nav" id="mobileDrawer">
+  <a href="index.html">Home</a>
+  <a href="Range.dc.html">Range</a>
+  <a href="Refurbishment.dc.html">Refurbishment</a>
+  <a href="Warranty.dc.html">Warranty</a>
+  <a href="Become-a-Dealer.dc.html" class="active">Dealers</a>
+  <a href="Contact.dc.html">Contact</a>
+  <a href="About.dc.html">About</a>
+  <a class="mob-key" href="Dealer-Sign-In.dc.html">Dealer portal</a>
+</div>
+
+<!-- SECTION 1: HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div class="mono" style="margin-bottom:22px;">For dealers and resellers</div>
+    <h1>Dealers see<br><span class="r">dealer pricing.</span></h1>
+    <div class="hero-meta">
+      <p>Approved dealers and resellers sign in to see their own pricing, check availability, build quotes and download spec sheets for their customers. Retail visitors never see it.</p>
+      <div class="hero-btns">
+        <a class="btn-red" href="#apply">Apply for an account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
+        <a class="btn-ghost" href="Dealer-Sign-In.dc.html">Already approved? Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1B: 4 FEATURE CARDS -->
+<section class="features-sec">
+  <div class="wrap">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="card-num">01</span>
+        <h3>Your own pricing</h3>
+        <p>Dealer pricing in place of retail, visible only when you're signed in.</p>
+      </div>
+      <div class="feature-card">
+        <span class="card-num">02</span>
+        <h3>Availability</h3>
+        <p>Check what's ready to ship before you quote your customer.</p>
+      </div>
+      <div class="feature-card">
+        <span class="card-num">03</span>
+        <h3>Build quotes</h3>
+        <p>Pick models and quantities and send a quote request in one step.</p>
+      </div>
+      <div class="feature-card">
+        <span class="card-num">04</span>
+        <h3>Spec sheets</h3>
+        <p>Download spec sheets to pass on to your customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: HOW IT WORKS -->
+<section class="steps-sec">
+  <div class="wrap">
+    <div class="steps-layout">
+      <div>
+        <div class="mono">How it works</div>
+        <h2>Apply once.<br>Sign in after.</h2>
+      </div>
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-num">01.</span>
+          <div class="step-body">
+            <h4>Apply</h4>
+            <p>Tell us about your business and the customers you serve.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">02.</span>
+          <div class="step-body">
+            <h4>We review</h4>
+            <p>The Berrelli team reviews each application. [Review time to be confirmed.]</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">03.</span>
+          <div class="step-body">
+            <h4>Sign in</h4>
+            <p>Once approved, sign in with the email on your dealer account to see dealer pricing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: DEALER APPLICATION -->
+<section class="apply-sec" id="apply">
+  <div class="wrap">
+    <div class="apply-layout">
+      <div>
+        <div class="mono">Dealer application</div>
+        <h2>Apply for a<br>dealer<br>account.</h2>
+        <p class="side-note">Questions first? Call [Phone] or email [Email].</p>
+      </div>
+
+      <div class="app-form-box">
+        <form id="dealerForm">
+          <div class="app-form-grid">
+            <div class="field-group">
+              <label>Company name *</label>
+              <input type="text" id="companyName" required>
+            </div>
+            <div class="field-group">
+              <label>Contact name *</label>
+              <input type="text" id="contactName" required>
+            </div>
+            <div class="field-group">
+              <label>Work email *</label>
+              <input type="email" id="workEmail" required>
+            </div>
+            <div class="field-group">
+              <label>Phone</label>
+              <input type="tel" id="phone">
+            </div>
+            <div class="field-group">
+              <label>Website</label>
+              <input type="url" id="website" placeholder="https://">
+            </div>
+            <div class="field-group">
+              <label>Territory / region</label>
+              <input type="text" id="territory">
+            </div>
+            <div class="field-group">
+              <label>Business type</label>
+              <select id="businessType">
+                <option selected>Medical equipment dealer</option>
+                <option>Reseller</option>
+                <option>Distributor</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Resale / tax ID</label>
+              <input type="text" id="taxId" placeholder="(Optional)">
+            </div>
+            <div class="field-group full-width">
+              <label>Customers you serve</label>
+              <textarea id="customers" rows="4" placeholder="Surgery centers, hospitals, regions, expected volume"></textarea>
+            </div>
+            <div class="form-footer">
+              <div class="form-terms">
+                By applying you agree to our <a href="Terms.dc.html">Terms</a> and <a href="Privacy.dc.html">Privacy</a> policy.
+              </div>
+              <button type="submit" class="btn-red">
+                Submit application <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"></path></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="form-success" id="dealerSuccessNotice">
+          <div class="mono" style="color:var(--red);margin-bottom:12px;">Application Received</div>
+          <h3>Thank you for applying.</h3>
+          <p>The Berrelli team reviews each application and will respond with your dealer pricing tier within 24 hours.</p>
+          <button type="button" class="btn-ghost" id="dealerResetBtn">Submit another application</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="index.html" class="brand">
+        <img src="data:image/png;base64,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" alt="Berrelli" style="height:22px;display:block;">
+      </a>
+      <nav class="foot-links">
+        <a href="Range.dc.html">Range</a>
+        <a href="Refurbishment.dc.html">Refurbishment</a>
+        <a href="Warranty.dc.html">Warranty</a>
+        <a href="Become-a-Dealer.dc.html" style="color:#fff;">Dealers</a>
+        <a href="About.dc.html">About</a>
+        <a href="Contact.dc.html">Contact</a>
+      </nav>
+    </div>
+    <div class="legal">
+      <span>© 2026 Berrelli. All rights reserved.</span>
+      <span>
+        <a href="Privacy.dc.html">Privacy</a> · 
+        <a href="Terms.dc.html">Terms</a> · 
+        Design preview. Sample content for illustration.
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+  // Top nav blur
+  const topHeader = document.getElementById('topHeader');
+  window.addEventListener('scroll', () => {
+    topHeader.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Mobile drawer toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  menuToggle.addEventListener('click', () => {
+    mobileDrawer.classList.toggle('open');
+  });
+
+  // Form submit
+  const form = document.getElementById('dealerForm');
+  const success = document.getElementById('dealerSuccessNotice');
+  const resetBtn = document.getElementById('dealerResetBtn');
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      success.style.display = 'block';
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      form.style.display = 'block';
+      success.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>
