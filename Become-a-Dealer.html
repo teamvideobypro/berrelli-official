@@ -107,8 +107,9 @@ button, [role="button"], .key, .btn-red, .btn-ghost, .mob-key {
 .nav ul {
   display: flex;
   list-style: none;
-  gap: 34px;
-  font-size: 14px;
+  gap: clamp(16px, 1.8vw, 26px);
+  font-size: 13.5px;
+  white-space: nowrap;
   font-weight: 500;
   margin: 0;
   padding: 0;
@@ -558,9 +559,11 @@ footer {
 @media (max-width: 1120px) {
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 980px) {
-  .nav ul, .nav .key { display: none; }
+@media (max-width: 1080px) {
+  .nav ul { display: none; }
   .menu-btn { display: inline-flex; }
+}
+@media (max-width: 980px) {
   .hero-meta { grid-template-columns: 1fr; }
   .steps-layout { grid-template-columns: 1fr; }
   .apply-layout { grid-template-columns: 1fr; }
@@ -588,17 +591,14 @@ footer {
       <img src="data:image/png;base64,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" alt="Berrelli">
     </a>
     <ul id="desktopNav">
-      <li><a href="index.html#range">Range</a></li>
-      <li><a href="index.html#refurbishment">Refurbishment</a></li>
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="index.html#range">Shop &amp; Products</a></li>
+      <li><a href="index.html#refurbishment">Quality &amp; Refurbishment Process</a></li>
       <li><a href="index.html#warranty">Warranty</a></li>
-      <li><a href="Become-a-Dealer.html" class="active">Dealers</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="index.html#contact">Contact Us</a></li>
+      <li><a href="index.html#terms">Terms &amp; Conditions</a></li>
     </ul>
     <div class="nav-actions">
-      <a class="key" href="index.html#portal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="10"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
-        Dealer portal
-      </a>
       <button class="menu-btn" id="menuToggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobileDrawer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h18M3 16h18"></path></svg>
       </button>
@@ -609,13 +609,12 @@ footer {
 <!-- Mobile Drawer -->
 <div class="mob-nav" id="mobileDrawer">
   <a href="index.html">Home</a>
-  <a href="index.html#range">Range</a>
-  <a href="index.html#refurbishment">Refurbishment</a>
+  <a href="index.html#about">About Us</a>
+  <a href="index.html#range">Shop &amp; Products</a>
+  <a href="index.html#refurbishment">Quality &amp; Refurbishment Process</a>
   <a href="index.html#warranty">Warranty</a>
-  <a href="Become-a-Dealer.html" class="active">Dealers</a>
-  <a href="index.html#contact">Contact</a>
-  <a href="index.html#about">About</a>
-  <a class="mob-key" href="index.html#portal">Dealer portal</a>
+  <a href="index.html#contact">Contact Us</a>
+  <a href="index.html#terms">Terms &amp; Conditions</a>
 </div>
 
 <!-- SECTION 1: HERO -->
@@ -627,36 +626,18 @@ footer {
       <p>Approved dealers and resellers sign in to see their own pricing, check availability, build quotes and download spec sheets for their customers. Retail visitors never see it.</p>
       <div class="hero-btns">
         <a class="btn-red" href="#apply">Apply for an account <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
-        <a class="btn-ghost" href="index.html#portal">Already approved? Sign in</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SECTION 1B: 4 FEATURE CARDS -->
-<section class="features-sec">
+<!-- SECTION 1B: DEALER PRICING BOX -->
+<section class="features-sec" style="padding:80px 0 100px;">
   <div class="wrap">
-    <div class="feature-grid">
-      <div class="feature-card">
-        <span class="card-num">01</span>
-        <h3>Your own pricing</h3>
-        <p>Dealer pricing in place of retail, visible only when you're signed in.</p>
-      </div>
-      <div class="feature-card">
-        <span class="card-num">02</span>
-        <h3>Availability</h3>
-        <p>Check what's ready to ship before you quote your customer.</p>
-      </div>
-      <div class="feature-card">
-        <span class="card-num">03</span>
-        <h3>Build quotes</h3>
-        <p>Pick models and quantities and send a quote request in one step.</p>
-      </div>
-      <div class="feature-card">
-        <span class="card-num">04</span>
-        <h3>Spec sheets</h3>
-        <p>Download spec sheets to pass on to your customers.</p>
-      </div>
+    <div style="border:1px solid var(--line);background:#FFFFFF;padding:34px 30px;max-width:520px;box-shadow:var(--shadow-elev);">
+      <span class="card-num" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--red);font-size:14px;">01</span>
+      <h3 style="font-size:22px;font-weight:600;margin:28px 0 8px;color:var(--txt);">Your own pricing</h3>
+      <p style="color:var(--body);font-size:15px;line-height:1.5;">Dealer pricing in place of retail, visible only for approved dealer accounts — plus 5% bulk discount on 10+ units.</p>
     </div>
   </div>
 </section>
@@ -667,7 +648,7 @@ footer {
     <div class="steps-layout">
       <div>
         <div class="mono">How it works</div>
-        <h2>Apply once.<br>Sign in after.</h2>
+        <h2>Apply once.<br>Get approved.</h2>
       </div>
       <div class="steps-list">
         <div class="step-item">
@@ -687,8 +668,8 @@ footer {
         <div class="step-item">
           <span class="step-num">03.</span>
           <div class="step-body">
-            <h4>Sign in</h4>
-            <p>Once approved, sign in with the email on your dealer account to see dealer pricing.</p>
+            <h4>Approved</h4>
+            <p>Once approved, your dealer account is activated with wholesale dealer pricing in place of retail.</p>
           </div>
         </div>
       </div>
@@ -764,7 +745,7 @@ footer {
         <div class="form-success" id="dealerSuccessNotice">
           <div class="mono" style="color:var(--red);margin-bottom:12px;">Application Received</div>
           <h3>Thank you for applying.</h3>
-          <p>The Berrelli team reviews each application and will respond with your dealer pricing tier within 24 hours.</p>
+          <p>The Berrelli team reviews each application and will respond once your dealer account is approved.</p>
           <button type="button" class="btn-ghost" id="dealerResetBtn">Submit another application</button>
         </div>
       </div>
@@ -780,20 +761,19 @@ footer {
         <img src="data:image/png;base64,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" alt="Berrelli" style="height:22px;display:block;">
       </a>
       <nav class="foot-links">
-        <a href="index.html#range">Range</a>
-        <a href="index.html#refurbishment">Refurbishment</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#range">Shop &amp; Products</a>
+        <a href="index.html#refurbishment">Quality &amp; Refurbishment Process</a>
         <a href="index.html#warranty">Warranty</a>
-        <a href="Become-a-Dealer.html" class="active">Dealers</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html#contact">Contact Us</a>
+        <a href="index.html#terms">Terms &amp; Conditions</a>
       </nav>
     </div>
     <div class="legal">
       <span>© 2026 Berrelli. All rights reserved.</span>
       <span>
-        <a href="index.html#privacy">Privacy</a> · 
-        <a href="index.html#terms">Terms</a> · 
-        Design preview. Sample content for illustration.
+        <a href="Become-a-Dealer.html" class="active" style="font-weight:600;color:var(--txt);">Dealers</a> · 
+        <a href="index.html#privacy">Privacy</a>
       </span>
     </div>
   </div>
