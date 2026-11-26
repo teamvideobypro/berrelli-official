@@ -111,7 +111,62 @@ button, [role="button"], .key, .b, .mob-key, .pill, .tab-btn, .qty-btn {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+.header-cart-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--red);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .15s ease;
+}
+.header-cart-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+}
+.header-cart-btn:hover {
+  background: rgba(237, 28, 36, 0.08);
+  border-color: rgba(237, 28, 36, 0.25);
+  color: var(--red-hover);
+}
+.header-cart-badge {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #FFFFFF;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(237, 28, 36, 0.35);
+}
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+.btn-spinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btnSpin .6s linear infinite;
+  vertical-align: -2px;
 }
 .key {
   display: inline-flex;
@@ -1103,11 +1158,18 @@ footer {
 .cart-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.35);
+  background: rgba(15, 23, 42, 0.55);
   z-index: 60;
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .28s ease, visibility .28s ease;
 }
-.cart-backdrop.open { display: block; }
+.cart-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .cart-drawer {
   position: fixed;
   top: 0;
@@ -1116,14 +1178,20 @@ footer {
   width: min(100vw, 440px);
   background: #FFFFFF;
   border-left: 1px solid var(--line);
-  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.12);
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.14);
   z-index: 65;
-  display: none;
+  display: flex;
   flex-direction: column;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform .32s cubic-bezier(.22, 1, .36, 1), visibility .32s ease;
 }
-.cart-drawer.open { display: flex; }
+.cart-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+}
 .cart-head {
   display: flex;
   justify-content: space-between;
@@ -1277,9 +1345,16 @@ footer {
       <li><a href="#refurbishment" data-nav="refurbishment">Quality &amp; Refurbishment Process</a></li>
       <li><a href="#warranty" data-nav="warranty">Warranty</a></li>
       <li><a href="#contact" data-nav="contact">Contact Us</a></li>
-      <li><a href="#terms" data-nav="terms">Terms &amp; Conditions</a></li>
     </ul>
     <div class="nav-actions">
+      <button type="button" class="header-cart-btn" id="headerCartBtn" aria-label="Open shopping cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="header-cart-badge cart-count-val" id="headerCartBadge">0</span>
+      </button>
       <button class="menu-btn" id="menuToggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="mobileDrawer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" id="menuIcon"><path d="M3 8h18M3 16h18"></path></svg>
       </button>
@@ -1295,7 +1370,6 @@ footer {
   <a href="#refurbishment" data-nav="refurbishment">Quality &amp; Refurbishment Process</a>
   <a href="#warranty" data-nav="warranty">Warranty</a>
   <a href="#contact" data-nav="contact">Contact Us</a>
-  <a href="#terms" data-nav="terms">Terms &amp; Conditions</a>
 </div>
 
 <!-- ========================================== -->
@@ -2342,7 +2416,7 @@ footer {
       <span>Estimated Total</span>
       <span id="cartTotal">$0</span>
     </div>
-    <button type="button" class="b red" id="cartCheckoutBtn" style="width:100%;justify-content:center;" disabled>Request Quote / Order Inquiry →</button>
+    <button type="button" class="b red" id="cartCheckoutBtn" style="width:100%;justify-content:center;background:var(--red);border-color:var(--red);" disabled>Checkout →</button>
   </div>
 </aside>
 
@@ -2762,11 +2836,12 @@ footer {
     const p = CATALOG[pid];
     if (!p) return;
     const varStr = variation || p.variations[0];
+    const thumb = (p.gallery && p.gallery[0]) ? p.gallery[0].src : '';
     const existing = cart.find(item => item.id === p.id && item.variation === varStr);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ id: p.id, name: p.name, price: p.price, variation: varStr, qty });
+      cart.push({ id: p.id, name: p.name, price: p.price, variation: varStr, img: thumb, qty });
     }
     renderCart();
   }
@@ -2788,12 +2863,16 @@ footer {
     let subtotal = 0;
     cartItemsBody.innerHTML = cart.map((item, idx) => {
       subtotal += item.price * item.qty;
+      const imgTag = item.img ? `<img src="${item.img}" alt="${item.name}" style="width:56px;height:56px;object-fit:contain;background:var(--panel);border:1px solid var(--line);padding:4px;flex-shrink:0;">` : '';
       return `
         <div style="padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;">
-          <div style="min-width:0;">
-            <div style="font-weight:600;color:var(--txt);font-size:15px;">${item.name}</div>
-            <div style="color:var(--mute);font-size:12px;margin-top:2px;">${item.variation}</div>
-            <div style="color:var(--body);font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:4px;">$${item.price.toLocaleString()} each</div>
+          <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+            ${imgTag}
+            <div style="min-width:0;">
+              <div style="font-weight:600;color:var(--txt);font-size:15px;">${item.name}</div>
+              <div style="color:var(--mute);font-size:12px;margin-top:2px;">${item.variation}</div>
+              <div style="color:var(--body);font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:4px;">$${item.price.toLocaleString()} each</div>
+            </div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
             <button type="button" class="qty-btn cart-mod" data-idx="${idx}" data-delta="-1" aria-label="Decrease">−</button>
@@ -2828,25 +2907,50 @@ footer {
     });
   }
 
+  function triggerAddToCartFeedback(btn, onDone) {
+    if (!btn || btn.dataset.adding === '1') return;
+    const origHtml = btn.innerHTML;
+    btn.dataset.adding = '1';
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> Adding...';
+    setTimeout(() => {
+      btn.innerHTML = 'Added!';
+      btn.disabled = false;
+      if (onDone) onDone();
+      setTimeout(() => {
+        btn.innerHTML = origHtml;
+        delete btn.dataset.adding;
+      }, 1200);
+    }, 320);
+  }
+
   document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      addToCart(btn.getAttribute('data-pid'), null, 1);
-      const orig = btn.textContent;
-      btn.textContent = '✓ Added to cart';
-      setTimeout(() => { btn.textContent = orig; }, 1200);
+      const pid = btn.getAttribute('data-pid');
+      addToCart(pid, null, 1);
+      openCart();
+      triggerAddToCartFeedback(btn);
     });
   });
 
   document.getElementById('pdAddBtn').addEventListener('click', () => {
+    const btn = document.getElementById('pdAddBtn');
     addToCart(activeProductId, activeVariation, activeDetailQty);
-    pdAddedMsg.style.display = 'block';
+    openCart();
+    triggerAddToCartFeedback(btn, () => {
+      pdAddedMsg.style.display = 'block';
+    });
   });
   document.getElementById('pdOpenCartInline').addEventListener('click', openCart);
   document.getElementById('shopCartBtn').addEventListener('click', openCart);
   document.getElementById('pdCartBtn').addEventListener('click', openCart);
+  document.getElementById('headerCartBtn').addEventListener('click', openCart);
   cartFab.addEventListener('click', openCart);
   document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
   cartBackdrop.addEventListener('click', closeCart);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer.classList.contains('open')) closeCart();
+  });
 
   cartCheckoutBtn.addEventListener('click', () => {
     if (cart.length === 0) return;
